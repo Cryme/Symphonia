@@ -317,7 +317,10 @@ impl Layer3 {
                     bs
                 }
                 else {
-                    return decode_error("mpa: invalid main_data offset");
+                    requantize::zero(&mut self.samples[gr][ch]);
+                    part2_3_begin += u32::from(frame_data.granules[gr].channels[ch].part2_3_length) as usize;
+
+                    continue;
                 };
 
                 // Read the scale factors (part2) and get the number of bits read.
